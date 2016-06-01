@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Patient Geographical Distribution</title>
+  <!-- Tell the browser to be responsive to screen width -->
+  <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+  <style>
+      html, body { height:100%; }
+  </style>
+</head>
+<body>
+	<script>
+      	// Create circles on the map, representing number of patients per district in Uganda
+		// First, create an object containing LatLng and number of patients for each district.
+		//var cities = JSON.parse(data)
+		var citymap = {
+		  maracha: {
+		    center: {lat: 3.287313, lng: 30.940302},
+		    patients: {{art_dict.Maracha}}
+		  },
+		  arua: {
+		    center: {lat: 3.03033 , lng: 30.907304},
+		    patients: {{art_dict.Arua}}
+		  },
+		  moyo: {
+		    center: {lat: 3.569646, lng: 31.673937},
+		    patients: {{art_dict.Moyo}}
+		  },
+		  adjumani: {
+		    center: {lat: 3.254853, lng: 31.719546},
+		    patients: {{art_dict.Adjumani}}
+		  },
+		  nebbi: {
+		    center: {lat: 2.440939, lng: 31.354163},
+		    patients: {{art_dict.Nebbi}}
+		  },
+		   yumbe: {
+		    center: {lat: 3.546819, lng: 31.354163},
+		    patients: {{art_dict.Yumbe}}
+		  },
+		  zombo: {
+		    center: {lat: 2.513476, lng: 30.908739},
+		    patients: {{art_dict.Zombo}}
+		  },
+		  koboko: {
+		    center: {lat: 3.416799, lng: 30.95895},
+		    patients: {{art_dict.Koboko}}
+		  },
+		  apac: {
+		    center: {lat: 1.985091, lng: 32.534446},
+		    patients: {{art_dict.Apac}}
+		  },
+		  gulu: {
+		    center: {lat: 2.772404, lng: 32.288073},
+		    patients: {{art_dict.Gulu}}
+		  },
+		  kole: {
+		    center: {lat: 2.37011, lng: 32.763304},
+		    patients: {{art_dict.Kole}}
+		  },
+		   nwoya: {
+		    center: {lat: 2.562444, lng: 31.901795},
+		    patients: {{art_dict.Nwoya}}
+		  },
+		   agago: {
+		    center: {lat: 2.925082, lng: 33.348615},
+		    patients: {{art_dict.Agago}}
+		  },
+		  kitgum: {
+		    center: {lat: 3.288485, lng: 32.87895},
+		    patients: {{art_dict.Kitgum}}
+		  },
+		  lira: {
+		    center: {lat: 2.258083, lng: 32.887407},
+		    patients: {{art_dict.Lira}}
+		  },
+		  pader: {
+		    center: {lat: 2.943068, lng: 32.80845},
+		    patients: {{art_dict.Pader}}
+		  },
+		  amolatar: {
+		    center: {lat: 1.60544, lng: 32.80845},
+		    patients: {{art_dict.Amolatar}}
+		  },
+		   dokolo: {
+		    center: {lat: 1.913096, lng: 33.171699},
+		    patients: {{art_dict.Dokolo}}
+		  },
+		  amuru: {
+		    center: {lat: 2.966788, lng: 32.083744},
+		    patients: {{art_dict.Amuru}}
+		  },
+		  oyam: {
+		    center: {lat:  2.277628, lng: 32.446724},
+		    patients: {{art_dict.Oyam}}
+		  },
+		  lamwo: {
+		    center: {lat: 3.490969, lng: 32.80845},
+		    patients: {{art_dict.Lamwo}}
+		  },
+		  otuke: {
+		    center: {lat: 2.521406, lng: 33.348615},
+		    patients: {{art_dict.Otuke}}
+		  },
+		  alebtong: {
+		    center: {lat: 2.254577, lng: 33.348615},
+		    patients: {{art_dict.Alebtong}}
+		  },
+		   bundibugyo: {
+		    center: {lat: 0.707531, lng: 30.063635},
+		    patients: {{art_dict.Bundibugyo}}
+		  },
+		  hoima: {
+		    center: {lat: 1.427355, lng: 31.348445},
+		    patients: {{art_dict.Hoima}}
+		  },
+		  kabarole: {
+		    center: {lat: 0.585079, lng: 30.251273},
+		    patients: {{art_dict.Kabarole}}
+		  },
+		  kasese: {
+		    center: {lat: 0.169899, lng: 30.078078},
+		    patients: {{art_dict.Kasese}}
+		  },
+		  kibaale: {
+		    center: {lat: 0.768255, lng: 31.077659},
+		    patients: {{art_dict.Kibaale}}
+		  },
+		  masindi: {
+		    center: {lat: 1.687313, lng: 31.713846},
+		    patients: {{art_dict.Masindi}}
+		  },
+		   kamwenge: {
+		    center: {lat: 0.225793, lng: 30.481845},
+		    patients: {{art_dict.Kamwenge}}
+		  },
+		  kyenjojo: {
+		    center: {lat: 0.713765, lng: 30.619989},
+		    patients: {{art_dict.Kyenjojo}}
+		  },
+		  buliisa: {
+		    center: {lat: 2.029961, lng: 31.537},
+		    patients: {{art_dict.Buliisa}}
+		  },
+		  kyegegwa: {
+		    center: {lat: 0.450745, lng: 30.987632},
+		    patients: {{art_dict.Kyegegwa}}
+		  },
+		  kiryandongo: {
+		    center: {lat: 1.953045, lng: 32.139122},
+		    patients: {{art_dict.Kiryandongo}}
+		  },
+		  ntoroko: {
+		    center: {lat: 1.11151, lng: 30.435763},
+		    patients: {{art_dict.Ntoroko}}
+		  },
+		   mbarara: {
+		    center: {lat: -0.60716, lng: 30.654502},
+		    patients: {{art_dict.Mbarara}}
+		  },
+		   ntungamo: {
+		    center: {lat: -0.875075, lng: 30.265695},
+		    patients: {{art_dict.Ntungamo}}
+		  },
+		  bushenyi: {
+		    center: {lat: -0.487092, lng: 30.20511},
+		    patients: {{art_dict.Bushenyi}}
+		  },
+		  kabale: {
+		    center: {lat: -1.241956, lng: 29.985616},
+		    patients: {{art_dict.Kabale}}
+		  },
+		  kisoro: {
+		    center: {lat: -1.220943, lng: 29.649916},
+		    patients: {{art_dict.Kisoro}}
+		  },
+		  rukungiri: {
+		    center: {lat: -0.791139, lng: 29.924903},
+		    patients: {{art_dict.Rukungiri}}
+		  },
+		   kanungu: {
+		    center: {lat: -0.819525, lng: 29.742604},
+		    patients: {{art_dict.Kanungu}}
+		  },
+		  ibanda: {
+		    center: {lat: -0.096489, lng: 30.573958},
+		    patients: {{art_dict.Ibanda}}
+		  },
+		  isingiro: {
+		    center: {lat: -0.7455, lng: 30.757983},
+		    patients: {{art_dict.Isingiro}}
+		  },
+		  kiruhura: {
+		    center: {lat: -0.1928, lng: 30.803947},
+		    patients: {{art_dict.Kiruhura}}
+		  },
+		  mitooma: {
+		    center: {lat: -0.619328, lng: 30.020296},
+		    patients: {{art_dict.Mitooma}}
+		  },
+		  buhweju: {
+		    center: {lat: -0.356177, lng: 30.29742},
+		    patients: {{art_dict.Buhweju}}
+		  },
+		   sheema: {
+		    center: {lat: -0.55153, lng: 30.389665},
+		    patients: {{art_dict.Sheema}}
+		  },
+		  rubirizi: {
+		    center: {lat: -0.264241, lng: 30.108403},
+		    patients: {{art_dict.Rubirizi}}
+		  },
+		  sironko: {
+		    center: {lat: 1.160782, lng: 34.286609},
+		    patients: {{art_dict.Sironko}}
+		  },
+		  kamuli: {
+		    center: {lat: 0.944785, lng: 33.126717},
+		    patients: {{art_dict.Kamuli}}
+		  },
+		  iganga: {
+		    center: {lat: 0.604583, lng: 33.471983},
+		    patients: {{art_dict.Iganga}}
+		  },
+		  jinja: {
+		    center: {lat: 0.447857, lng: 33.202612},
+		    patients: {{art_dict.Jinja}}
+		  },
+		   pallisa: {
+		    center: {lat: 1.170697, lng: 33.709857},
+		    patients: {{art_dict.Pallisa}}
+		  },
+		  tororo: {
+		    center: {lat: 0.678227, lng: 34.186567},
+		    patients: {{art_dict.Tororo}}
+		  },
+		  mayuge: {
+		    center: {lat: 0.253213, lng: 33.550866},
+		    patients: {{art_dict.Mayuge}}
+		  },
+		  bugiri: {
+		    center: {lat: 0.567136, lng: 33.746185},
+		    patients: {{art_dict.Bugiri}}
+		  },
+		  busia: {
+		    center: {lat: 0.470669, lng: 34.09198},
+		    patients: {{art_dict.Busia}}
+		  },
+		  butaleja: {
+		    center: {lat: 0.847492, lng: 33.841129},
+		    patients: {{art_dict.Butaleja}}
+		  },
+		   manafwa: {
+		    center: {lat:  0.90636, lng: 34.286609},
+		    patients: {{art_dict.Manafwa}}
+		  },
+		   kaliro: {
+		    center: {lat: 0.89275, lng: 33.502801},
+		    patients: {{art_dict.Kaliro}}
+		  },
+		  budaka: {
+		    center: {lat: 1.101628, lng: 33.930399},
+		    patients: {{art_dict.Budaka}}
+		  },
+		  namutumba: {
+		    center: {lat: 0.83609, lng: 33.686096},
+		    patients: {{art_dict.Namutumba}}
+		  },
+		  bududa: {
+		    center: {lat: 1.002969, lng: 34.333812},
+		    patients: {{art_dict.Bududa}}
+		  },
+		  kibuku: {
+		    center: {lat: 1.045287, lng: 33.799254},
+		    patients: {{art_dict.Kibuku}}
+		  },
+		   bulambuli: {
+		    center: {lat: 1.479885, lng: 34.375441},
+		    patients: {{art_dict.Bulambuli}}
+		  },
+		  mbale: {
+		    center: {lat: 1.078444, lng: 34.181006},
+		    patients: {{art_dict.Mbale}}
+		  },
+		  buyende: {
+		    center: {lat: 1.146297, lng: 33.161158},
+		    patients: {{art_dict.Buyende}}
+		  },
+		  luuka: {
+		    center: {lat: 0.72506, lng: 33.303714},
+		    patients: {{art_dict.Luuka}}
+		  },
+		  namayingo: {
+		    center: {lat: 0.145259, lng: 33.784389},
+		    patients: {{art_dict.Namayingo}}
+		  },
+		  kween: {
+		    center: {lat: 0.145259, lng: 33.784389},
+		    patients: {{art_dict.Kween}}
+		  },
+		   napak: {
+		    center: {lat: 2.362995, lng: 34.24216},
+		    patients: {{art_dict.Napak}}
+		  },
+		  ngora: {
+		    center: {lat: 1.456947, lng: 33.778309},
+		    patients: {{art_dict.Ngora}}
+		  },
+		  kapchorwa: {
+		    center: {lat: 1.335021, lng: 34.397636},
+		    patients: {{art_dict.Kapchorwa}}
+		  },
+		  kotido: {
+		    center: {lat: 3.006202, lng: 34.111462},
+		    patients: {{art_dict.Kotido}}
+		  },
+		  kumi: {
+		    center: {lat: 1.4877, lng: 33.930399},
+		    patients: {{art_dict.Kumi}}
+		  },
+		  moroto: {
+		    center: {lat: 2.528223, lng: 34.657998},
+		    patients: {{art_dict.Moroto}}
+		  },
+		   soroti: {
+		    center: {lat: 1.713181, lng: 33.606385},
+		    patients: {{art_dict.Soroti}}
+		  },
+		  katakwi: {
+		    center: {lat: 1.973103, lng: 34.064142},
+		    patients: {{art_dict.Katakwi}}
+		  },
+		  kaberamaido: {
+		    center: {lat: 1.632475, lng: 33.123905},
+		    patients: {{art_dict.Kaberamaido}}
+		  },
+		  nakapiripirit: {
+		    center: {lat: 1.960617, lng: 34.597132},
+		    patients: {{art_dict.Nakapiripirit}}
+		  },
+		  amuria: {
+		    center: {lat: 2.03017, lng: 33.642753},
+		    patients: {{art_dict.Amuria}}
+		  },
+		  bukwo: {
+		    center: {lat: 1.281865, lng: 34.729877},
+		    patients: {{art_dict.Bukwo}}
+		  },
+		   kaabong: {
+		    center: {lat: 3.512444, lng: 34.133722},
+		    patients: {{art_dict.Kaabong}}
+		  },
+		   serere: {
+		    center: {lat: 1.497009, lng: 33.393494},
+		    patients: {{art_dict.Serere}}
+		  },
+		  abim: {
+		    center: {lat: 2.706698, lng: 33.659534},
+		    patients: {{art_dict.Abim}}
+		  },
+		  amudat: {
+		    center: {lat: 1.791622, lng: 34.906551},
+		    patients: {{art_dict.Amudat}}
+		  },
+		  bukedea: {
+		    center: {lat: 1.347685, lng: 34.043257},
+		    patients: {{art_dict.Bukedea}}
+		  },
+		  kampala: {
+		    center: {lat: 0.347596, lng: 32.58252},
+		    patients: {{art_dict.Kampala}}
+		  },
+		   kiboga: {
+		    center: {lat: 0.865805, lng: 31.947311},
+		    patients: {{art_dict.Kiboga}}
+		  },
+		  kayunga: {
+		    center: {lat: 0.986018, lng: 32.853576},
+		    patients: {{art_dict.Kayunga}}
+		  },
+		  buvuma: {
+		    center: {lat: 0.121736, lng: 33.168201},
+		    patients: {{art_dict.Buvuma}}
+		  },
+		  mukono: {
+		    center: {lat: 0.354866, lng: 32.752014},
+		    patients: {{art_dict.Mukono}}
+		  },
+		  nakasongola: {
+		    center: {lat: 1.348972, lng: 32.446724},
+		    patients: {{art_dict.Nakasongola}}
+		  },
+		  luweero: {
+		    center: {lat: 0.840409, lng: 32.497668},
+		    patients: {{art_dict.Luweero}}
+		  },
+		   buikwe: {
+		    center: {lat: 0.282683, lng: 33.033877},
+		    patients: {{art_dict.Buikwe}}
+		  },
+		  kyankwanzi: {
+		    center: {lat: 1.206118, lng: 31.816403},
+		    patients: {{art_dict.Kyankwanzi}}
+		  },
+		   nakaseke: {
+		    center: {lat: 1.092274, lng: 32.083744},
+		    patients: {{art_dict.Nakaseke}}
+		  },
+		   kalungu: {
+		    center: {lat: -0.095283, lng: 31.765136},
+		    patients: {{art_dict.Kalungu}}
+		  },
+		  lwengo: {
+		    center: {lat: -0.416529, lng: 31.399899},
+		    patients: {{art_dict.Lwengo}}
+		  },
+		  kalangala: {
+		    center: {lat: -0.635058, lng: 32.537274},
+		    patients: {{art_dict.Kalangala}}
+		  },
+		  lyantonde: {
+		    center: {lat: -0.407504, lng: 31.15672},
+		    patients: {{art_dict.Lyantonde}}
+		  },
+		  wakiso: {
+		    center: {lat: 0.398723, lng: 32.479274},
+		    patients: {{art_dict.Wakiso}}
+		  },
+		   gomba: {
+		    center: {lat: 0.159116, lng: 31.673937},
+		    patients: {{art_dict.Gomba}}
+		  },
+		  bukomansimbi: {
+		    center: {lat: -0.143205, lng: 31.651126},
+		    patients: {{art_dict.Bukomansimbi}}
+		  },
+		  butambala: {
+		    center: {lat: 0.17425, lng: 32.106467},
+		    patients: {{art_dict.Butambala}}
+		  },
+		  masaka: {
+		    center: {lat: -0.326738, lng: 31.75374},
+		    patients: {{art_dict.Masaka}}
+		  },
+		  mpigi: {
+		    center: {lat: -0.063271, lng: 32.083744},
+		    patients: {{art_dict.Mpigi}}
+		  },
+		  rakai: {
+		    center: {lat: -0.706913, lng: 31.537},
+		    patients: {{art_dict.Rakai}}
+		  },
+		   ssembabule: {
+		    center: {lat: -0.081638, lng: 31.459901},
+		    patients: {{art_dict.Ssembabule}}
+		  },
+		  mityana: {
+		    center: {lat: 0.40164, lng: 32.043969},
+		    patients: {{art_dict.Mityana}}
+		  },
+		   mubende: {
+		    center: {lat: 0.577276, lng: 31.537},
+		    patients: {{art_dict.Mubende}}
+		  }
+		};
+
+		function initMap() {
+		  // Create the map.
+		  var map = new google.maps.Map(document.getElementById('map'), {
+		    zoom: 8,
+		    center: {lat: 1.373333, lng: 32.290275},
+		    //center: {lat: 0.347596, lng: 32.58252},
+		    mapTypeId: google.maps.MapTypeId.TERRAIN
+		  });
+
+		  // Construct the circle for each value in citymap.
+		  // Note: We scale the area of the circle based on the population.
+		  for (var city in citymap) {
+		    // Add the circle for this city to the map.
+		    var cityCircle = new google.maps.Circle({
+		      strokeColor: '#FF0000',
+		      strokeOpacity: 0.8,
+		      strokeWeight: 2,
+		      fillColor: '#FF0000',
+		      fillOpacity: 0.35,
+		      map: map,
+		      center: citymap[city].center,
+		      radius: citymap[city].patients * 200
+		    });
+		  }
+		}
+	</script>
+	<div id="map" style="width:100%; height:100%;"></div>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAxoEUX7czQ9wtrTddwxA39q2ZzOmyhwvQ&callback=initMap" async defer></script>
+</body>
+</html>

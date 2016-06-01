@@ -1,0 +1,28 @@
+{% extends "art/base.html" %}
+
+{% block title_block %}Anti Retroviral Treatment{% endblock %}
+
+{% block body_block %}
+
+{% endblock %}
+
+<script>
+  function processForm(e) {
+    if (e.preventDefault) e.preventDefault();
+    /* do what you want with the form */
+    var recipient = document.getElementById('emailto');
+    var subject = document.getElementById('subject');
+    var message = document.getElementById('message');
+    window.open('mailto:recipient?subject=subject&body=message');
+    // You must return false to prevent the default form behavior
+    return false;
+  }
+  function submission(){
+    var form = document.getElementById('mail');
+    if (form.attachEvent) {
+        form.attachEvent("submit", processForm);
+    } else {
+        form.addEventListener("submit", processForm);
+    }
+  }
+</script>

@@ -1,0 +1,14 @@
+{% extends "art/base.html" %}
+
+{% block title %}ART{% endblock %}
+
+{% block content %}
+
+Art List:
+<p>
+{% for art in object_list %}
+{{art.gender}}
+</p>
+{% endfor %}
+
+{% endblock %}
