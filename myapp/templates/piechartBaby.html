@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block body_block %}
+<link media="all" href="{% static 'nvd3/build/nv.d3.css' %}" type="text/css" rel="stylesheet" />
+<script type="text/javascript" src='{% static 'd3/d3.min.js' %}'></script>
+<script type="text/javascript" src='{% static 'nvd3/build/nv.d3.min.js' %}'></script>
+
+{% load nvd3_tags %}
+<head>
+{% load_chart charttype chartdata "piechart_container" %}
+	</head>
+<body>
+
+    
+   	{% include_container "piechart_container" 400 500 %}
+   		 {% endblock %}
+   
+</body>
