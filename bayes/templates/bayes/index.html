@@ -1,7 +1,54 @@
 {% extends "bayes/base.html" %}
 
-{% block title_block %}Predictive Analytics{% endblock %}
+{% load static %}
 
-{% block body_block %}
+{% block title_block %}Calls Classification{% endblock %}
 
+{% block calls %}
+<div>
+	<div id="chart_container"></div>
+	<script src="{% static 'bayes/highcharts/jquery.js' %}"></script>
+	<script src="{% static 'bayes/highcharts/highcharts.js' %}"></script>
+	<script>
+		$(function () {
+			$('#chart_container').highcharts({
+				chart: {
+					type: 'bar'
+				},
+				title: {
+					text: 'Reasons for Calling'
+				},
+				xAxis: {
+					categories: ['HIV/AIDS', 'Other', 'VMMC', 'Reproductive Health', 'Service Inquiry']
+				},
+				yAxis: {
+					title: {
+						text: 'frequency distribution'
+					}
+				},
+				series: [{
+					name: 'HIV/AIDS',
+					data: [{{data_dict.hiv}}, 0, 0, 0, 0],
+					pointWidth: 50
+				},{
+					name: 'Other',
+					data: [0, {{data_dict.other}}, 0, 0, 0],
+					pointWidth: 50
+				},{
+					name: 'VMMC',
+					data: [0, 0, {{data_dict.vmmc}}, 0, 0],
+					pointWidth: 50
+				},{
+					name: 'Reproductive Health',
+					data: [0, 0, 0, {{data_dict.reproductive}}, 0],
+					pointWidth: 50
+				}, {
+					name: 'Service Inquiry',
+					data: [0, 0, 0, 0, {{data_dict.inquiry}}],
+					pointWidth: 50
+				}]
+			});
+		});
+	</script>
+</div>
 {% endblock %}

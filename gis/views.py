@@ -3,16 +3,6 @@ from gis.models import Art
 from gis.district import districts
 
 # Create your views here.
-# Index view
-def index(request):
-	template = 'gis/index.html'
-	page = {
-	'title':'Salutation',
-	'Salute':'Hello world!',
-	}
-	context = {'index_text':page}
-	return render(request, template, context)
-
 def gis(request):
 	patients = {}
 	for i, value in districts.items():

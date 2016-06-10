@@ -7,10 +7,10 @@ from django.template import loader
 
 # Create your views here.
 # Index view
-def index(request):
-	template = loader.get_template('bayes/index.html')
-	context = {'index_text':'Index Page'}
-	return HttpResponse(template.render(context, request))
+def calls(request):
+	template = 'bayes/index.html'
+	data = bayes()
+	return render(request, template, data)
 
 # classifier
 def classifier():
@@ -80,7 +80,7 @@ def classifier():
 	return cl
 
 # naive bayes algorithm classification
-def bayes(request):
+def bayes():
 	all_calls = IncomingCall.objects.all()
 	cl = classifier();
 
@@ -107,6 +107,7 @@ def bayes(request):
 			break
 	
 	data = {'hiv':hiv, 'other':pregnancy, 'vmmc':vmmc, 'reproductive':sex, 'inquiry':inquiry}
-	template = 'bayes/analytics.html'
+	#template = 'bayes/analytics.html'
 	context = {'data_dict':data}
-	return render(request, template, context)
+	#return render(request, template, context)
+	return context

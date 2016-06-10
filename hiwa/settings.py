@@ -15,9 +15,14 @@ import pymysql
 
 pymysql.install_as_MySQLdb()
 
+APPLICATION_DIR = os.path.dirname(globals()['__file__'])
+
+PROJECT_ROOT = os.path.abspath(
+    os.path.join(os.path.dirname(__file__), ".."),
+)
+
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.9/howto/deployment/checklist/
@@ -30,6 +35,11 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+TWILIO_ACCOUNT_SID = 'AC552c01472b892096a9ca266f0daa6a41'
+TWILIO_AUTH_TOKEN = '585e74bcffbb09a6cee032bca6634614'
+TWILIO_PHONE_NUMBER = '+18562707173'
+
+STATIC_ROOT = os.path.join(PROJECT_ROOT, 'static')
 
 # Application definition
 
@@ -44,6 +54,10 @@ INSTALLED_APPS = [
     'bayes',
     'gis',
     'reports',
+    'myapp',
+    'spouseBabyTestedFeatures',
+    'django_nvd3',
+    'djangobower',
 ]
 
 MIDDLEWARE_CLASSES = [
@@ -92,6 +106,30 @@ DATABASES = {
     }
 }
 
+#Template info
+
+# Static files (CSS, JavaScript, Images)
+STATICFILES_FINDERS = (
+    'django.contrib.staticfiles.finders.FileSystemFinder',
+    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+    'djangobower.finders.BowerFinder',
+)
+
+TEMPLATE_LOADERS = (
+    'django.template.loaders.filesystem.Loader',
+    'django.template.loaders.app_directories.Loader',
+    'django.template.loaders.eggs.Loader',
+)
+
+#Bower information
+BOWER_COMPONENTS_ROOT = os.path.join(APPLICATION_DIR, 'components')
+
+BOWER_PATH = os.path.normpath(r'C:\Users\ANDREIS\AppData\Roaming\npm\bower.cmd')
+
+BOWER_INSTALLED_APPS = (
+    'd3#3.3.13',
+    'nvd3#1.7.1',
+)
 
 # Password validation
 # https://docs.djangoproject.com/en/1.9/ref/settings/#auth-password-validators

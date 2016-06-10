@@ -1,0 +1,12 @@
+{% load static %}
+{% load nvd3_tags %}
+<head>
+	<link media="all" href="{% static 'nvd3/build/nv.d3.css' %}" type="text/css" rel="stylesheet" />
+	<script type="text/javascript" src='http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js'></script>
+	<script type="text/javascript" src='{% static 'd3/d3.min.js' %}'></script>
+	<script type="text/javascript" src='{% static 'nvd3/build/nv.d3.min.js' %}'></script>
+    {% load_chart charttype chartdata "piechart_container" %}
+</head>
+<div> 
+   	{% include_container "piechart_container"%}
+</div>

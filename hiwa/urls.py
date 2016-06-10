@@ -15,17 +15,19 @@ Including another URLconf
 """
 from django.conf.urls import url, include
 from django.contrib import admin
-from art import urls
+from art import urls, views
 from bayes import urls
 from gis import urls
-
-admin.autodiscover()
+from myapp import urls
+from spouseBabyTestedFeatures import urls
 
 urlpatterns = [
+    url(r'^$', views.index),
     url(r'^admin/', admin.site.urls),
-    url(r'^', admin.site.urls),
     url(r'^art/', include('art.urls')),
     url(r'^bayes/', include('bayes.urls')),
     url(r'^gis/', include('gis.urls')),
     url(r'^reports/', include('reports.urls')),
+    url(r'^myapp/', include('myapp.urls')),
+    url(r'^tested/', include('spouseBabyTestedFeatures.urls')),
 ]

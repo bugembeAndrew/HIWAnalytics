@@ -1,16 +1,11 @@
-<!DOCTYPE html>
-<html>
 <head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>{% block title_block %}Predictive Analytics{% endblock %}</title>
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
   <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
   <script src="http://code.highcharts.com/highcharts.js"></script>
 </head>
-<body>
-	<div id="chart_container" style="width:500px; height:500px;"></div>
+<div>
+	<div id="chart_container"></div>
 	<script>
 		$(function () {
 			$('#chart_container').highcharts({
@@ -18,34 +13,38 @@
 					type: 'bar'
 				},
 				title: {
-					text: 'Classification of Reasons for Calling'
+					text: 'Reasons for Calling'
 				},
 				xAxis: {
-					categories: ['Classes of the Calls']
+					categories: ['HIV/AIDS', 'Other', 'VMMC', 'Reproductive Health', 'Service Inquiry']
 				},
 				yAxis: {
 					title: {
-						text: 'frequency'
+						text: 'frequency distribution'
 					}
 				},
 				series: [{
 					name: 'HIV/AIDS',
-					data: [{{data_dict.hiv}}]
+					data: [{{data_dict.hiv}}, 0, 0, 0, 0],
+					pointWidth: 40
 				},{
 					name: 'Other',
-					data: [{{data_dict.other}}]
+					data: [0, {{data_dict.other}}, 0, 0, 0],
+					pointWidth: 40
 				},{
 					name: 'VMMC',
-					data: [{{data_dict.vmmc}}]
+					data: [0, 0, {{data_dict.vmmc}}, 0, 0],
+					pointWidth: 40
 				},{
 					name: 'Reproductive Health',
-					data: [{{data_dict.reproductive}}]
+					data: [0, 0, 0, {{data_dict.reproductive}}, 0],
+					pointWidth: 40
 				}, {
 					name: 'Service Inquiry',
-					data: [{{data_dict.inquiry}}]
+					data: [0, 0, 0, 0, {{data_dict.inquiry}}],
+					pointWidth: 40
 				}]
 			});
 		});
 	</script>
-</body>
-</html>
+</div>

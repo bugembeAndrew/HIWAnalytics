@@ -1,14 +1,12 @@
 # urls for testapp module
 
 from django.conf.urls import url, patterns
-from django.views.generic import ListView
-from art.views import ArtListView, ArtCreate, ArtUpdate, ArtDelete
 from . import views
 
 urlpatterns = patterns("art.views",
-    url(r'^art/$', views.index, name='index'),
-    url(r'^patients/$', ArtListView.as_view(), name='patients'),
-    url(r'add/$', ArtCreate.as_view(), name='add'),
-    url(r'update/(?P<pk>[0-9]+)/$', ArtUpdate.as_view(), name='update'),
-    url(r'(?P<pk>[0-9]+)/delete/$', ArtDelete.as_view(), name='delete'),
+    url(r'^index/$', views.index, name='index'),
+    url(r'^linechart/', views.create_linechart, name='linechart'),
+    url(r'^piechart/', views.piechart, name='pie'),
+    url(r'^piechart2/', views.piechartTest, name='pie2'),
+    url(r'^piechartBaby/', views.piechartBaby, name='pie3'),
 )

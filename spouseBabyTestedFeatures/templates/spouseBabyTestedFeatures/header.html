@@ -1,0 +1,96 @@
+<! DOCTYPE html >
+<html lang = "en">
+
+<head>
+	<title>TheMedicalConciergeGroup</title>
+	<meta charset="utf-8" />
+	{% load staticfiles %}
+	<link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.min.css' %}" />
+	<meta name="viewport" content = "width=device-width, initial-scale=1.0">
+
+	<style type="text/css">
+		html,
+		body {
+		  height:100%
+		}
+	</style>
+</head>
+
+<body class="body" style="background-color:#ffffff">
+	<div class="container-fluid" style="min-height:95%; ">
+		<div class="row">
+			  <div class="col-sm-2">
+				  <center>
+					<img src="{% static 'spouseBabyTestedFeatures/img/logo.jpg' %}" class="responsive-img" style='max-height:100px;' alt="logo" href = '/index/'/>
+				  </center>
+			  </div>
+			  <div class="col-sm-10">
+				  <left>
+				  <h3>The Medical Concierge Group</h3>
+				  </left>
+			  </div>
+		</div><hr>
+
+		<div class="row">
+		  <div class="col-sm-3">
+
+		   <!-- Great, til you resize. -->
+			<!--<div class="well bs-sidebar affix" id="sidebar" style="background-color:#fff">-->
+			<div class="well bs-sidebar" id="sidebar" style="background-color:#fff">
+			  <ul class="nav nav-pills nav-stacked">
+			  	<li><a href='/'>Dashboard</a></li>
+				<li><a href='/tested/baby_analytical_graphs'>Baby Analytical Graphs</a></li>
+				<li><a href='/tested/spouse_analytical_graphs'>Spouse Analytical Graphs</a></li>
+				<li><a href='/tested/recommendation'>Make Recommendation</a></li>
+			  </ul>
+			</div> <!--well bs-sidebar affix-->
+		  </div> <!--col-sm-2-->
+
+		  <div class="col-sm-6">
+		  
+			<div class='container-fluid'>
+
+			   {% block content %}
+			   {% endblock %}	
+			</div>
+		  </div>
+		
+
+	<div class="row">
+		  <div class="col-sm-3">
+
+		   <!-- Great, til you resize. -->
+			<!--<div class="well bs-sidebar affix" id="sidebar" style="background-color:#fff">-->
+			<div class="well bs-sidebar" id="sidebar" style="background-color:#fff">
+			  <ul class="nav nav-pills nav-stacked">
+				<li><a href='/tested/baby_not_tested'>View Patient Details whose Babies aren't Tested</a></li>
+				<li><a href='/tested/spouse_not_tested'>View Patient Details whose Spouses aren't Tested</a></li>
+				<li><a href='/tested/view_sent_recommendations'>View Sent Recommendations</a></li>
+			  </ul>
+			</div> <!--well bs-sidebar affix-->
+		  </div> <!--col-sm-2-->
+		  </div>
+	</div>
+	</div>
+	<br/>
+
+	<footer>
+		<div class="container-fluid" style="background-color:#0f0f0f">
+		<div class="row">
+		<p/>
+		<div class="col-sm-8">
+			<p font-color = "grey"> &copy 2016 BSE Group 16-40. All rights reversed. </p>
+		</div>
+		<div class="col-sm-4">
+			<p><a href='/contact/' target="blank">Our Team</a></p>
+		</div>
+		<br/>
+		</div>
+		</div>
+
+	</footer>	
+	
+</body>
+
+
+</html>

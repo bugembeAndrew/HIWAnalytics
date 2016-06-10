@@ -1,28 +1,90 @@
+<!DOCTYPE html>
 {% extends "art/base.html" %}
 
-{% block title_block %}Anti Retroviral Treatment{% endblock %}
+{% block title_block %}Anti-retroviral Therapy{% endblock %}
 
-{% block body_block %}
+{% if item.val4 %}
+
+{% block age %}
+	{% load_chart item.val4.charttype item.val4.chartdata "ages" %}
+   	{% include_container "ages"%}
+{% endblock %}
+
+{% endif %}
+	
+{% if item.val1 %}
+
+{% block ratio %}
+	{% load_chart item.val1.charttype item.val1.chartdata "ratios" %}
+   	{% include_container "ratios"%}
+{% endblock %}
+
+{% endif %}
+
+{% if item.val2 %}
+
+{% block spouse %}
+    {% load_chart item.val2.charttype item.val2.chartdata "spouses" %}
+    {% include_container "spouses"%}
+{% endblock %}
+
+{% endif %}
+
+{% if item.val3 %}
+
+{% block baby %}
+	{% load_chart item.val3.charttype item.val3.chartdata "babies" %}
+    {% include_container "babies"%}
+{% endblock %}
+
+{% endif %}
+
+{% if item.val5 %}
+
+{% block baby_list %}
+
+	<table class="table table-bordered table-hover">
+	    <thead>
+	        <tr>
+	        <th>Name</th>
+	        <th>Contact</th>
+	        </tr>
+	    </thead>
+	    <tbody>
+	    {% for x in item.val5 %}
+	        <tr>
+	            <td>{{ x.art.name}}</td>
+	             
+	            <td>{{ x.art.telephone_number}}</td>    
+	        </tr>
+	    {% endfor %}
+	    </tbody>
+	</table>
 
 {% endblock %}
 
-<script>
-  function processForm(e) {
-    if (e.preventDefault) e.preventDefault();
-    /* do what you want with the form */
-    var recipient = document.getElementById('emailto');
-    var subject = document.getElementById('subject');
-    var message = document.getElementById('message');
-    window.open('mailto:recipient?subject=subject&body=message');
-    // You must return false to prevent the default form behavior
-    return false;
-  }
-  function submission(){
-    var form = document.getElementById('mail');
-    if (form.attachEvent) {
-        form.attachEvent("submit", processForm);
-    } else {
-        form.addEventListener("submit", processForm);
-    }
-  }
-</script>
+{% endif %}
+
+{% if item.val6 %}
+
+{% block spouse_list %}
+	<table class="table table-bordered table-hover">
+	    <thead>
+	        <tr>
+	        <th>Name</th>
+	        <th>Contact</th>
+	        </tr>
+	    </thead>
+	    <tbody>
+	    {% for x in item.val6 %}
+	        <tr>
+	            <td>{{ x.art.name}}</td>
+	             
+	            <td>{{ x.art.telephone_number}}</td>    
+	        </tr>
+	    {% endfor %}
+	    </tbody>
+	</table>
+{% endblock %}
+
+{% endif %}
