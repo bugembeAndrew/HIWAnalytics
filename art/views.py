@@ -9,7 +9,7 @@ from datetime import date
 # Index view
 def index(request):
     val1 = piechart()
-    val2 = piechartTest()
+    val2 = vennMale()
     val3 = piechartBaby()
     val4 = create_linechart()
     val5 = parents()
@@ -27,13 +27,38 @@ def index(request):
     }
     return render(request,'art/index.html', context)
 
-def patientList():
+def vennMale():
+    male_set = Art.objects.filter(gender="Male").count()
     patients = ArtCall.objects.filter(spouse_tested="No").all()
-    return patients
+
+    count = 0
+
+    for x in patients:
+        if(x.art.gender == 'Male'):
+            count += 1
+
+    male_string = 'Of the '+str(male_set)+' Males with HIV'
+    string2 ='Only 2 have spouse tested'
+    context = {
+    'item':{
+        'val1':male_set,
+        'val2':male_string,
+        'val3':string2,
+        'val4':patients,
+        'val5':str(count),
+        }
+    }
+    return context
+
+def patientList():
+    spouses = ArtCall.objects.filter(spouse_tested="No").all()
+    
+    return spouses
 
 def parents():
-    patients = ArtCall.objects.filter(baby_tested="No").all()
-    return patients
+    parents = ArtCall.objects.filter(baby_tested="No").all()
+    
+    return parents
 
 def create_linechart():  
     patient_all = Art.objects.all()
@@ -76,13 +101,13 @@ def create_linechart():
     }
     return data
 
-def piechart():
+def piechart(request):
     male_set = Art.objects.filter(gender="Male").count()
     female_set = Art.objects.filter(gender="Female").count()
     total = male_set + female_set
-    male_set = int((male_set/total)*100)
-    female_set = int((female_set/total)*100)
-    xdata = ["Male :" +str(male_set)+"%", "Female :"+str(female_set)+"%"]
+    #male_set = int((male_set/total)*100)
+    #female_set = int((female_set/total)*100)
+    xdata = ["Male: " +str(male_set)+"", "Female: "+str(female_set)+""]
     ydata = [male_set, female_set]
     chartdata = {'x': xdata, 'y': ydata}
     charttype = "pieChart"
@@ -101,7 +126,8 @@ def piechart():
         'jquery_on_ready': False,
         }
     }
-    return data
+    male = vennMale()
+    return render(request,'art/index.html', locals())
 
 def piechartTest():
     patients = ArtCall.objects.filter(spouse_tested="No").all()

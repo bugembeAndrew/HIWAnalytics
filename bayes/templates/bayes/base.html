@@ -68,12 +68,7 @@
   <!-- AdminLTE App -->
   <script src="{% static 'bayes/dist/js/app.min.js' %}" >
   </script>
-  <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
-  <script src="{% static 'bayes/dist/js/pages/dashboard.js' %}" >
-  </script>
-  <!-- AdminLTE for demo purposes -->
-  <script src="{% static 'bayes/dist/js/demo.js' %}" >
-  </script>
+
 </head>
 <body class="hold-transition skin-black sidebar-mini">
 <div class="wrapper">
@@ -158,11 +153,11 @@
             <i class="fa fa-angle-left pull-right"></i>
           </a>
           <ul class="treeview-menu">
-            <li><a href="/#ratio"><i class="fa fa-circle-o"></i> Male Vs Female</a></li>
-            <li><a href="/#age"><i class="fa fa-circle-o"></i> Age Distribution </a></li>
+            <li><a href="/"><i class="fa fa-circle-o"></i> Male Vs Female</a></li>
+            <li><a href="/myapp/ages"><i class="fa fa-circle-o"></i> Age Distribution </a></li>
             <li><a href="/bayes/calls"><i class="fa fa-circle-o"></i> Call Classification</a></li>
-            <li><a href="/#baby"><i class="fa fa-circle-o"></i> Tested Babies</a></li>
-            <li><a href="/#tested"><i class="fa fa-circle-o"></i> Tested Spouses</a></li>
+            <li><a href="/myapp/babies"><i class="fa fa-circle-o"></i> Tested Babies</a></li>
+            <li><a href="/myapp/spouses"><i class="fa fa-circle-o"></i> Tested Spouses</a></li>
             <li><a href="/tested/recommendation"><i class="fa fa-circle-o"></i> Make Recommendation</a></li>
           </ul>
         </li>
@@ -172,8 +167,8 @@
             <i class="fa fa-angle-left pull-right"></i>
           </a>
           <ul class="treeview-menu">
-            <li><a href="/gis/map"><i class="fa fa-circle-o"></i> Patients</a></li>
-            <li><a href="/gis/hospitals"><i class="fa fa-circle-o"></i> Health Facilities</a></li>
+            <li><a href="/gis/map" target="_blank"><i class="fa fa-circle-o"></i> Patients</a></li>
+            <li><a href="/gis/hospitals" target="_blank"><i class="fa fa-circle-o"></i> Health Facilities</a></li>
           </ul>
         </li>
         <li class="treeview">
@@ -182,9 +177,9 @@
             <i class="fa fa-angle-left pull-right"></i>
           </a>
           <ul class="treeview-menu">
-            <li><a href="/reports/arvs"><i class="fa fa-circle-o"></i> Patients without ARVs</a></li>
-            <li><a href="/reports/age"><i class="fa fa-circle-o"></i> Infected Age Groups</a></li>
-            <li><a href="/reports/challenges"><i class="fa fa-circle-o"></i> ART Challenges</a></li>
+            <li><a href="/reports/arvs" target="_blank"><i class="fa fa-circle-o"></i> Patients without ARVs</a></li>
+            <li><a href="/reports/age" target="_blank"><i class="fa fa-circle-o"></i> Infected Age Groups</a></li>
+            <li><a href="/reports/challenges" target="_blank"><i class="fa fa-circle-o"></i> ART Challenges</a></li>
           </ul>
         </li>
         <li><a href="/myapp/help"><i class="fa fa-book"></i> <span>Help</span></a></li>
@@ -233,6 +228,7 @@
           </div>
           <!-- /.box -->
   </div>
+  </section>
   <!-- /.content-wrapper -->
   <footer class="main-footer">
     <div class="pull-right hidden-xs">

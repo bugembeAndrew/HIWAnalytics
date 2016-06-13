@@ -1,0 +1,30 @@
+{% extends "spouseBabyTestedFeatures/header.html" %}
+
+{% block content %}
+{% if not object_list %}
+        <p><strong>There are recommendations /advice Records sent to ART patients.</strong>
+      {% endif %}
+
+	<table class="table table-striped">
+        <thead>
+          <tr>
+            <th>Phone number</th>
+            <th>Message</th>
+            <th>Created at</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for recommendation in object_list %}
+            <tr>
+              <td>{{ recommendation.to_number }}</td>
+              <td>{{ recommendation.body }}</td>
+              <td>{{ recommendation.created_at}}</td>
+              <td>
+              </td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+
+		
+{% endblock %}

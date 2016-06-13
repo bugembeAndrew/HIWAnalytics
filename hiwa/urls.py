@@ -22,7 +22,7 @@ from myapp import urls
 from spouseBabyTestedFeatures import urls
 
 urlpatterns = [
-    url(r'^$', views.index),
+    url(r'^$', views.piechart),
     url(r'^admin/', admin.site.urls),
     url(r'^art/', include('art.urls')),
     url(r'^bayes/', include('bayes.urls')),

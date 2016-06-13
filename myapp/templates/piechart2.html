@@ -1,12 +1,89 @@
+{% extends 'base.html' %}
+
 {% load static %}
-{% load nvd3_tags %}
-<head>
-	<link media="all" href="{% static 'nvd3/build/nv.d3.css' %}" type="text/css" rel="stylesheet" />
-	<script type="text/javascript" src='http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js'></script>
-	<script type="text/javascript" src='{% static 'd3/d3.min.js' %}'></script>
-	<script type="text/javascript" src='{% static 'nvd3/build/nv.d3.min.js' %}'></script>
-    {% load_chart charttype chartdata "piechart_container" %}
-</head>
-<div> 
-   	{% include_container "piechart_container"%}
-</div>
+
+{% block title_block %}Spouses Tested{% endblock %}
+
+{% block label %}Spouses Tested{% endblock %}
+
+{% block ratio %}
+	{% load nvd3_tags %}
+	<head>
+		<link media="all" href="{% static 'nvd3/build/nv.d3.css' %}" type="text/css" rel="stylesheet" />
+		<script type="text/javascript" src='http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js'></script>
+		<script type="text/javascript" src='{% static 'd3/d3.min.js' %}'></script>
+		<script type="text/javascript" src='{% static 'nvd3/build/nv.d3.min.js' %}'></script>
+		<script  src='{% static 'myapp/node_modules/venn.js/build/venn.min.js' %}'></script>
+
+	    <style>
+	        body {
+	            
+	        }
+	        #pie {
+			    float:left;
+			    padding:10px; 
+			}
+			#venn {
+				font-family: "Helvetica Neue",Helvetica,sans-serif;
+	            font-size: 20px;
+			    float:left;
+			    padding:10px; 
+			}
+	    </style>
+
+	    {% load_chart charttype chartdata "piechart_container" %}
+
+	</head>
+	<body> 
+	   	<div id="pie">{% include_container "piechart_container" 455 455 %}</div>
+	   	<div id="venn"></div>
+	</body>
+	<script>
+	    // define sets and set set intersections
+	    var sets = [ {sets: ['Of the '+{{ ven.item.val1 }}+' Females with HIV'], size: 12},
+	                 
+	                 {sets: ['Only '+{{ ven.item.val5}}+' have their Spouses tested'], size: 4},
+	                 {sets: ['Only '+{{ ven.item.val5}}+' have their Spouses tested','Of the '+{{ ven.item.val1 }}+' Females with HIV',], size: 4}
+	                 ];
+
+	    // draw venn diagram
+		var div = d3.select("#venn")
+		div.datum(sets).call(venn.VennDiagram());
+
+		// add a tooltip
+		var tooltip = d3.select("body").append("div")
+		    .attr("class", "venntooltip");
+
+		// add listeners to all the groups to display tooltip on mouseover
+		div.selectAll("g")
+		    .on("mouseover", function(d, i) {
+		        // sort all the areas relative to the current item
+		        venn.sortAreas(div, d);
+
+		        // Display a tooltip with the current size
+		        tooltip.transition().duration(400).style("opacity", .9);
+		        tooltip.text(d.size + " users");
+
+		        // highlight the current path
+		        var selection = d3.select(this).transition("tooltip").duration(400);
+		        selection.select("path")
+		            .style("stroke-width", 3)
+		            .style("fill-opacity", d.sets.length == 1 ? .4 : .1)
+		            .style("stroke-opacity", 1);
+		    })
+
+		    .on("mousemove", function() {
+		        tooltip.style("left", (d3.event.pageX) + "px")
+		               .style("top", (d3.event.pageY - 28) + "px");
+		    })
+
+		    .on("mouseout", function(d, i) {
+		        tooltip.transition().duration(400).style("opacity", 0);
+		        var selection = d3.select(this).transition("tooltip").duration(400);
+		        selection.select("path")
+		            .style("stroke-width", 0)
+		            .style("fill-opacity", d.sets.length == 1 ? .25 : .0)
+		            .style("stroke-opacity", 0);
+		    });
+	</script>
+{% endblock %}

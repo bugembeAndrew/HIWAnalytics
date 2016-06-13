@@ -1,0 +1,26 @@
+{% extends "spouseBabyTestedFeatures/header.html" %}
+
+{% block content %}
+
+{% include "spouseBabyTestedFeatures/includes/spouserecommendationhtmlsnippet.html" %}
+
+<form action="." class="form-horizontal" method="post" role="form">
+{% csrf_token %}
+    {% for field in form %}
+        <div class="form-group">            
+        <label class="col-sm-3 control-label" for="inputEmail3">{{ field.label_tag }}</label>
+            <div class="col-sm-9">                
+            {{ field }}
+                {{ field.errors }}
+            </div>        
+            </div>    
+    {% endfor %}
+    <div class="form-group">        
+    <div class="col-sm-offset-3 col-sm-9">            
+    <button class="btn btn-default" type="submit">Send Message</button>
+        </div>    
+        </div>
+        </form>
+
+		
+{% endblock %}

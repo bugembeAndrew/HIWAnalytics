@@ -1,11 +1,56 @@
+{% extends 'base.html' %}
+
 {% load static %}
-	<link media="all" href="{% static 'nvd3/build/nv.d3.css' %}" type="text/css" rel="stylesheet" />
-	<script type="text/javascript" src='{% static 'd3/d3.min.js' %}'></script>
-	<script type="text/javascript" src='{% static 'nvd3/build/nv.d3.min.js' %}'></script>
-{% load nvd3_tags %}
-<head>
-{% load_chart charttype chartdata "piechart_container" %}
-</head>
-<div>
-   	{% include_container "piechart_container"%}
-</div>
+
+{% block title_block %}Babies Tested{% endblock %}
+
+{% block label %}Babies Tested{% endblock %}
+
+{% block ratio %}
+	{% load nvd3_tags %}
+	<head>
+		<link media="all" href="{% static 'nvd3/build/nv.d3.css' %}" type="text/css" rel="stylesheet" />
+		<script type="text/javascript" src='http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js'></script>
+		<script type="text/javascript" src='{% static 'd3/d3.min.js' %}'></script>
+		<script type="text/javascript" src='{% static 'nvd3/build/nv.d3.min.js' %}'></script>
+		<script  src='{% static 'myapp/node_modules/venn.js/build/venn.min.js' %}'></script>
+
+		<style>
+	        body {
+	            
+	        }
+	        #pie {
+			    float:left;
+			    padding:10px; 
+			}
+			#venn {
+				font-family: "Helvetica Neue",Helvetica,sans-serif;
+	            font-size: 20px;
+			    float:left;
+			    padding:10px; 
+			}
+	    </style>
+
+	    {% load_chart charttype chartdata "piechart_container" %}
+	</head>
+	<body> 
+	   	<div id="pie">{% include_container "piechart_container" 455 455 %}</div>
+	   	<div id="venn"></div>
+	</body>
+	<script>
+	    var sets = [ {sets: ['Of the '+{{ baby.item.val1 }}+' Females with HIV'], size: 12},
+	                 
+	                 {sets: [{{ baby.item.val5}}+' have their Babies not tested'], size: 4},
+	                 {sets: [{{ baby.item.val5}}+' have their Babies not tested','Of the '+{{ baby.item.val1 }}+' Females with HIV',], size: 4},
+	                 ];
+	    var chart = venn.VennDiagram();
+	    d3.select("#venn").datum(sets).call(chart);
+
+	    d3.select("#inverted").datum(sets).call(chart)
+
+	    d3.selectAll("#inverted .venn-circle path")
+	        .style("fill-opacity", .8);
+
+	    d3.selectAll("#inverted text").style("fill", "white");
+	</script>
+{% endblock %}

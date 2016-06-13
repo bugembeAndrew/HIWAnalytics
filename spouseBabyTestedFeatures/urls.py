@@ -15,15 +15,19 @@ Including another URLconf
 """
 from django.conf.urls import url, include, patterns
 from . import views
+from .views import RecommendationsListView
 
 urlpatterns = patterns('spouseBabyTestedFeatures.views',
-    #url(r'^$', views.index, name = 'index'),
-    url(r'^index/$', views.index, name = 'index'),
+    url(r'^recommendation/$', views.index, name = 'recommendation'),
     url(r'^baby_analytical_graphs/$', views.baby_analytical_graphs, name = 'baby_analytical_graphs'),
     url(r'^spouse_analytical_graphs/$', views.spouse_analytical_graphs, name = 'spouse_analytical_graphs'),
     url(r'^spouse_not_tested/$', views.spouse_not_tested, name = 'spouse_not_tested'),
     url(r'^baby_not_tested/$', views.baby_not_tested, name = 'baby_not_tested'),
-    url(r'^view_sent_recommendations/$', views.view_sent_recommendations, name = 'view_sent_recommendations'),
-    url(r'^recommendation/$', views.SendSmsCreateView.as_view(), name = 'recommendation'),
-    url(r'^message_sent_successfully/$', views.message_sent_successfully, name = 'message_sent_successfully'), 
+    url(r'^view_sent_recommendations/$', RecommendationsListView.as_view(), name = 'view_sent_recommendations'),
+    url(r'^baby_recommendation/$', views.SendSmsToPatientWhoseBabyNotTestedCreateView.as_view(), name = 'recommendation'),
+    url(r'^spouse_recommendation/$', views.SendSmsToPatientWhoseSpouseNotTestedCreateView.as_view(), name = 'recommendation'),
+    url(r'^baby_not_tested/baby_recommendation/$', views.SendSmsToPatientWhoseBabyNotTestedCreateView.as_view(), name = 'recommendation'),
+    url(r'^spouse_not_tested/spouse_recommendation/$', views.SendSmsToPatientWhoseSpouseNotTestedCreateView.as_view(), name = 'recommendation'),
+    url(r'^message_patients/$', views.message_patients, name = 'recommendation1'),
+    url(r'^message_sent_successfully/$', views.message_sent_successfully, name = 'message_sent_successfully'),
  )

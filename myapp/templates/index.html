@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+{% extends "art/base.html" %}
+
+{% block title_block %}Anti-retroviral Therapy{% endblock %}
+	
+{% if item.val1 %}
+
+{% block ratio %}
+	{% load_chart item.val1.charttype item.val1.chartdata "ratios" %}
+   	{% include_container "ratios"%}
+{% endblock %}
+
+{% endif %}
+
+{% if item.val5 %}
+
+{% block baby_list %}
+
+	<table class="table table-bordered table-hover">
+	    <thead>
+	        <tr>
+	        <th>Patient ID</th>
+	        <th>Area of Residence</th>
+	        <th>District</th>
+	        <th>Contact</th>
+	        </tr>
+	    </thead>
+	    <tbody>
+	    {% for x in item.val5 %}
+	        <tr>
+	            <td>{{ x.art.id}}</td>
+	            <td>{{ x.art.area}}</td>
+	            <td>{{ x.art.district}}</td>
+	            <td>{{ x.art.telephone_number}}</td>    
+	        </tr>
+	    {% endfor %}
+	    </tbody>
+	</table>
+
+{% endblock %}
+
+{% endif %}
+
+{% if item.val6 %}
+
+{% block spouse_list %}
+	<table class="table table-bordered table-hover">
+	    <thead>
+	        <tr>
+	        <th>Patient ID</th>
+	        <th>Area of Residence</th>
+	        <th>District</th>
+	        <th>Contact</th>
+	        </tr>
+	    </thead>
+	    <tbody>
+	    {% for x in item.val6 %}
+	        <tr>
+	            <td>{{ x.art.id}}</td>
+	            <td>{{ x.art.area}}</td>
+	            <td>{{ x.art.district}}</td>
+	            <td>{{ x.art.telephone_number}}</td>    
+	        </tr>
+	    {% endfor %}
+	    </tbody>
+	</table>
+{% endblock %}
+
+{% endif %}

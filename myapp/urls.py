@@ -1,10 +1,9 @@
 from django.conf.urls import patterns, include, url 
 from . import views
 urlpatterns = patterns('myapp.views',      
-	#url(r'^$', views.home, name='home'),
-    url(r'^linechart/', views.create_linechart, name='linechart'),
-    url(r'^piechart/', views.piechart, name='pie'),
-    url(r'^piechart2/', views.piechartTest, name='pie2'),
-    url(r'^piechartBaby/', views.piechartBaby, name='pie3'),
+    url(r'^ages/', views.create_linechart, name='ages'),
+    url(r'^ratios/', views.piechart, name='ratios'),
+    url(r'^spouses/', views.piechartTest, name='spouses'),
+    url(r'^babies/', views.piechartBaby, name='babies'),
     url(r'^help/', views.helpPage, name='help'),
 ) 

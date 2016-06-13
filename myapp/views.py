@@ -10,34 +10,33 @@ from datetime import date
 import time
 
 # Create your views here.
-#def hello(request): 
-  #  return render(request, "hello.html", {}) 
-# Patients list view
-from django.views.generic.list import ListView
+def patientList(request):
+	patients = ArtCall.objects.filter(spouse_tested="No").all()
+	return render(request,'notestedPatients.html', locals())
 
-def home(request):
-	return render(request,'base.html', locals())
 
-def create_linechart(request):	
+def create_linechart(request):
+	
 	patient_all = Art.objects.all()
 	age = 0
 	child =0
 	youth = 0
 	adult = 0
+	total = 0
 
 	for patient in patient_all:
 		if (not patient.age is  None):
 			age =  (date.today() - patient.age).days
 			if(age < 6570):
 				child +=1
-			elif(age >6570 <=12775):
+			elif(age > 6570 or age <= 12775):
 				youth+=1
 			elif(age > 12775):
 				adult+=1
 
 
 	xdata = ["Below 18", "Below 35", "Above 35"]
-	ydata = [child, youth, adult]
+	ydata = [child, youth, -adult]
 
 	extra_serie1 = {"tooltip": {"y_start": "", "y_end": " cal"}}
 	chartdata = {
@@ -57,11 +56,14 @@ def create_linechart(request):
 		},
 	}
 	return render(request,'linechart.html',data)
-
 def piechart(request):
+	
 	male_set = Art.objects.filter(gender="Male").count()
 	female_set = Art.objects.filter(gender="Female").count()
-	xdata = ["Male :" +str(male_set), "Female :" +str(female_set)]
+	total = male_set + female_set
+	#male_set = int((male_set/total)*100)
+	#female_set = int((female_set/total)*100)
+	xdata = ["Male: " +str(male_set)+"", "Female: "+str(female_set)+""]
 	ydata = [male_set, female_set]
 	chartdata = {'x': xdata, 'y': ydata}
 	charttype = "pieChart"
@@ -80,16 +82,16 @@ def piechart(request):
         'jquery_on_ready': False,
         }
     }
-	request.session['data'] = data
-	#if 'data' in request.session:
-	#	dt = request.session['data']
 	return render(request,'piechart.html',data)
 
 def piechartTest(request):
+	patients = ArtCall.objects.filter(spouse_tested="No").all()
 	all_patients = ArtCall.objects.all()
+	total = 0
 	yes_set = 0
 	no_set = 0
 	other = 0
+	ven = venn()
 
 	for patient in all_patients:
 		if(patient.spouse_tested == "Yes"):
@@ -98,7 +100,12 @@ def piechartTest(request):
 			no_set+=1
 		else:
 			other+=1
-	xdata = ["Spouse Tested "+str(yes_set), "Not Tested "+str(no_set),"N/A "+str(other)]
+	total = (yes_set+no_set+other)
+	#yes_set = int((yes_set/total)*100)
+	#no_set =int((no_set/total)*100)
+	#other = int((other/total)*100)
+
+	xdata = ["Spouse Tested: "+str(yes_set)+"", "Not Tested: "+str(no_set)+"","Singles: "+str(other)+""]
 	ydata = [yes_set, no_set,other]
 	chartdata = {'x': xdata, 'y': ydata}
 	charttype = "pieChart"
@@ -113,10 +120,13 @@ def piechartTest(request):
 	return render(request,'piechart2.html',locals())
 
 def piechartBaby(request):
+	patients = ArtCall.objects.filter(baby_tested="No").all()
 	all_objects = ArtCall.objects.all()
 	yes_set = 0
 	no_set = 0	
 	other = 0 
+	total = 0
+	baby = femaleBabies()
 
 	for patient in all_objects:
 		if(patient.baby_tested == "Yes"):
@@ -125,7 +135,12 @@ def piechartBaby(request):
 			no_set+=1
 		else:
 			other+=1
-	xdata = ["Baby Tested :"+ str(yes_set), "Not Tested :"+str(no_set),"N/A :" +str(other)]
+	total = (yes_set+no_set+other)
+	#yes_set =int((yes_set/total)*100)
+	#no_set = int((no_set/total)*100)
+	#other = int((other/total)*100)
+
+	xdata = ["Baby Tested: "+ str(yes_set)+"", "Not Tested: "+str(no_set) +"","Patients without babies: "+str(other)+""]
 	ydata = [yes_set, no_set,other]
 	chartdata = {'x': xdata, 'y': ydata}
 	charttype = "pieChart"
@@ -137,8 +152,56 @@ def piechartBaby(request):
 	labelType=    "percent"
 	showLabels = True
 	donut = True
+
 	return render(request,'piechartBaby.html',locals())
 
 def helpPage(request):
 
 	return render(request,'help.html', locals())
+
+def venn():
+
+	female_set = Art.objects.filter(gender="Female").count()
+	patients = ArtCall.objects.filter(spouse_tested="No").all()
+
+	count = 0
+
+	for x in patients:
+		if(x.art.gender == 'Female'):
+			count += 1
+
+	female_string = 'Of the'+str(female_set)+'Females with HIV'
+	string2 ='Only 2 have spouse tested'
+	context = {
+	'item':{
+        'val1':female_set,
+        'val2':female_string,
+        'val3':string2,
+        'val4':patients,
+        'val5':str(count),
+        }
+    }
+	return context
+	#return render(request,'piechart2.html', context)
+
+def femaleBabies():
+	female_set = Art.objects.filter(gender="Female").count()
+	patients = ArtCall.objects.filter(baby_tested="No").all()
+
+	count = 0
+
+	for x in patients:
+		if(x.art.gender == 'Female'):
+			count += 1
+
+	female_string = 'Of the '+str(female_set)+' Males with HIV'
+	
+	context = {
+	'item':{
+        'val1':female_set,
+        'val2':female_string,
+        'val4':patients,
+        'val5':str(count),
+        }
+    }
+	return context

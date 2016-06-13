@@ -1,0 +1,40 @@
+<!doctype html>
+{% load static %}
+
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title></title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.5/d3.min.js"></script>
+
+    <script  src='{% static 'myapp/node_modules/venn.js/build/venn.min.js' %}'></script>
+    <style>
+        body {
+            font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+            font-size: 14px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="venn"></div>
+</body>
+   
+<script>
+    // define sets and set set intersections
+    var sets = [ {sets: ['Of the '+{{ item.val1 }}+' Females with HIV'], size: 12},
+                 
+                 {sets: ['Only '+{{ item.val5}}+' have their Spouses tested'], size: 4},
+                 {sets: ['Only '+{{ item.val5}}+' have their Spouses tested','Of the '+{{ item.val1 }}+' Females with HIV',], size: 4}
+                 ];
+    var chart = venn.VennDiagram();
+    d3.select("#venn").datum(sets).call(chart);
+
+    d3.select("#inverted").datum(sets).call(chart)
+
+    d3.selectAll("#inverted .venn-circle path")
+        .style("fill-opacity", .8);
+
+    d3.selectAll("#inverted text").style("fill", "white");
+</script>
+</html>

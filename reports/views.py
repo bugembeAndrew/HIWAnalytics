@@ -46,7 +46,7 @@ def arvs_report():
 	logo = "logo.jpg"
 
 	for value in patients.items():
-		name.append(value[1].art.name)
+		name.append(value[1].art.id)
 		gender.append(value[1].art.gender)
 		area.append(value[1].art.area)
 		district.append(value[1].art.district)
@@ -64,7 +64,7 @@ def arvs_report():
 	report.append(Paragraph(ptext, styles["Normal"]))
 	report.append(Spacer(1, 12))
 	
-	title = ['Name', 'Gender', 'Area of Residence', 'District', 'Telephone Number']
+	title = ['Patient ID', 'Gender', 'Area of Residence', 'District', 'Telephone Number']
 	data = [title]
 
 	for i, value in enumerate(name):

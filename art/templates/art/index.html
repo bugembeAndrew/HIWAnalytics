@@ -1,90 +1,57 @@
-<!DOCTYPE html>
-{% extends "art/base.html" %}
+{% extends 'art/base.html' %}
 
-{% block title_block %}Anti-retroviral Therapy{% endblock %}
+{% load static %}
 
-{% if item.val4 %}
+{% block title_block %}Male versus Female Patients{% endblock %}
 
-{% block age %}
-	{% load_chart item.val4.charttype item.val4.chartdata "ages" %}
-   	{% include_container "ages"%}
-{% endblock %}
-
-{% endif %}
-	
-{% if item.val1 %}
+{% block label %}Male versus Female Patients{% endblock %}
 
 {% block ratio %}
-	{% load_chart item.val1.charttype item.val1.chartdata "ratios" %}
-   	{% include_container "ratios"%}
+	{% load nvd3_tags %}
+	<head>
+		<link media="all" href="{% static 'nvd3/build/nv.d3.css' %}" type="text/css" rel="stylesheet" />
+		<script type="text/javascript" src='http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js'></script>
+		<script type="text/javascript" src='{% static 'd3/d3.min.js' %}'></script>
+		<script type="text/javascript" src='{% static 'nvd3/build/nv.d3.min.js' %}'></script>
+		<script  src='{% static 'myapp/node_modules/venn.js/build/venn.min.js' %}'></script>
+
+	    <style>
+	        body {
+	            
+	        }
+	        #pie {
+			    float:left;
+			    padding:10px; 
+			}
+			#venn {
+				font-family: "Helvetica Neue",Helvetica,sans-serif;
+	            font-size: 20px;
+			    float:left;
+			    padding:10px; 
+			}
+	    </style>
+
+	    {% load_chart charttype chartdata "piechart_container" %}
+
+	</head>
+	<body> 
+	   	<div id="pie">{% include_container "piechart_container" 455 455 %}</div>
+	   	<div id="venn"></div>
+	</body>
+	<script>
+	    var sets = [ {sets: ['Of the '+{{ male.item.val1 }}+' Males with HIV'], size: 12},
+	                 
+	                 {sets: [{{ male.item.val5}}+' have their Spouses tested'], size: 4},
+	                 {sets: [{{ male.item.val5}}+' have their Spouses tested','Of the '+{{ male.item.val1 }}+' Males with HIV',], size: 4}
+	                 ];
+	    var chart = venn.VennDiagram();
+	    d3.select("#venn").datum(sets).call(chart);
+
+	    d3.select("#inverted").datum(sets).call(chart)
+
+	    d3.selectAll("#inverted .venn-circle path")
+	        .style("fill-opacity", .8);
+
+	    d3.selectAll("#inverted text").style("fill", "white");
+	</script>
 {% endblock %}
-
-{% endif %}
-
-{% if item.val2 %}
-
-{% block spouse %}
-    {% load_chart item.val2.charttype item.val2.chartdata "spouses" %}
-    {% include_container "spouses"%}
-{% endblock %}
-
-{% endif %}
-
-{% if item.val3 %}
-
-{% block baby %}
-	{% load_chart item.val3.charttype item.val3.chartdata "babies" %}
-    {% include_container "babies"%}
-{% endblock %}
-
-{% endif %}
-
-{% if item.val5 %}
-
-{% block baby_list %}
-
-	<table class="table table-bordered table-hover">
-	    <thead>
-	        <tr>
-	        <th>Name</th>
-	        <th>Contact</th>
-	        </tr>
-	    </thead>
-	    <tbody>
-	    {% for x in item.val5 %}
-	        <tr>
-	            <td>{{ x.art.name}}</td>
-	             
-	            <td>{{ x.art.telephone_number}}</td>    
-	        </tr>
-	    {% endfor %}
-	    </tbody>
-	</table>
-
-{% endblock %}
-
-{% endif %}
-
-{% if item.val6 %}
-
-{% block spouse_list %}
-	<table class="table table-bordered table-hover">
-	    <thead>
-	        <tr>
-	        <th>Name</th>
-	        <th>Contact</th>
-	        </tr>
-	    </thead>
-	    <tbody>
-	    {% for x in item.val6 %}
-	        <tr>
-	            <td>{{ x.art.name}}</td>
-	             
-	            <td>{{ x.art.telephone_number}}</td>    
-	        </tr>
-	    {% endfor %}
-	    </tbody>
-	</table>
-{% endblock %}
-
-{% endif %}
