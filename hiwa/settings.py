@@ -35,9 +35,9 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
-TWILIO_ACCOUNT_SID = 'AC552c01472b892096a9ca266f0daa6a41'
-TWILIO_AUTH_TOKEN = '585e74bcffbb09a6cee032bca6634614'
-TWILIO_PHONE_NUMBER = '+18562707173'
+TWILIO_ACCOUNT_SID = '################################'
+TWILIO_AUTH_TOKEN = '################################'
+TWILIO_PHONE_NUMBER = '################################'
 
 STATIC_ROOT = os.path.join(PROJECT_ROOT, 'static')
 
